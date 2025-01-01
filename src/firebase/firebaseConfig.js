@@ -18,4 +18,3 @@ const firebaseApp = initializeApp(firebaseConfig);
 const firestore = getFirestore(firebaseApp);
 
 export { firebaseApp, firestore };
-v

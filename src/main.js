@@ -8,4 +8,3 @@ const app = createApp(App);
 app.use(router);
 app.config.globalProperties.$firebaseApp = firebaseApp;
 app.mount('#app');
-v
