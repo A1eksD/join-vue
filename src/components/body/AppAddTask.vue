@@ -1,15 +1,19 @@
 <template>
-  <router-view />
+  <div>
+    <h1>Add Task</h1>
+  </div>
 </template>
 
 <script>
+
+
 export default {
-  name: 'App',
-};
+  name: 'AppAddTask',
+}
 </script>
 
 <style>
 #app {
-  margin: 0;
+  margin : 0;
 }
 </style>

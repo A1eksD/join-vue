@@ -1,15 +1,17 @@
 <template>
-  <router-view />
+  <div>
+    <h1>Summary Component</h1>
+  </div>
 </template>
 
 <script>
+
+
 export default {
-  name: 'App',
-};
+  name: 'AppSummary',
+}
 </script>
 
 <style>
-#app {
-  margin: 0;
-}
+
 </style>
