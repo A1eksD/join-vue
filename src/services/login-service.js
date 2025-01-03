@@ -1,9 +1,12 @@
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
 import { collection, query, where, getDocs, addDoc } from "firebase/firestore"; 
 import { firestore } from "../firebase/firebaseConfig"; 
+import { UserService } from "@/services/user-service";
 
 
 export function loginService() {
+
+const userService = UserService(); 
   const login = async (email, password) => {
     const auth = getAuth();
     try {
@@ -28,13 +31,13 @@ export function loginService() {
     }
   };
 
+
   const register = async (firstName, lastName, email, password) => {
     const auth = getAuth();
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
-      // Benutzer in Firestore speichern
       const userData = {
         uid: user.uid,
         firstName: firstName,
@@ -45,6 +48,9 @@ export function loginService() {
       };
 
       await addDoc(collection(firestore, "users"), userData);
+
+      userService.firstName.value = firstName;
+      userService.lastName.value = lastName;
 
       return {
         success: true,

@@ -8,8 +8,10 @@ export default {
 };
 </script>
 
-<style>
-#app {
+<style scoped>
+template {
   margin: 0;
+  width: 100%;
+  height: 100%;
 }
 </style>

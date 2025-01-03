@@ -63,7 +63,8 @@ export default {
       );
       if (response.success) {
         console.log("Registration successful:", response.user);
-        router.push({ path: "/summary" }); // Redirect nach erfolgreicher Registrierung
+        localStorage.setItem("userUID", JSON.stringify(response.user.uid));
+        router.push({ path: "/summary" });
       } else {
         console.error(
           "Registration failed:",
