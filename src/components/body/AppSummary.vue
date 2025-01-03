@@ -1,12 +1,14 @@
 <template>
-  <SharedHeader class="shared-header" />
-  <div>
-    <h1>Summary Component</h1>
+  <div class="body-div">
+    <SharedHeader class="shared-header" />
+    <div>
+      <h1>Summary Component</h1>
+    </div>
   </div>
 </template>
 
 <script>
-import { SharedHeader } from "@/shared/SharedHeader.vue";
+import SharedHeader from "@/shared/SharedHeader.vue";
 
 export default {
   name: "AppSummary",
@@ -16,8 +18,8 @@ export default {
 };
 </script>
 
-<style lang="scss">
-template {
+<style lang="scss" scoped>
+.body-div {
   width: 100vw;
   height: 100dvh;
   display: flex;
@@ -27,9 +29,10 @@ template {
   .shared-header {
     height: 100px;
     width: 100%;
+    background-color: #0d1117;
   }
   div {
-    height: 100%;
+    height: calc(100dvh - 100px);
     width: 100%;
     background-color: cadetblue;
   }

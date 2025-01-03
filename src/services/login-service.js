@@ -47,15 +47,19 @@ const userService = UserService();
         status: true,
       };
 
-      await addDoc(collection(firestore, "users"), userData);
-
-      userService.firstName.value = firstName;
-      userService.lastName.value = lastName;
-
-      return {
-        success: true,
-        user,
-      };
+      const resp = await addDoc(collection(firestore, "users"), userData);
+      if (resp) {
+        userService.firstName.value = firstName;
+        userService.lastName.value = lastName;
+        console.log("userService.firstName.value", userService.firstName.value);
+        
+        localStorage.setItem("firstName", JSON.stringify(firstName));
+        localStorage.setItem("lastName", JSON.stringify(lastName));
+        return {
+          success: true,
+          user,
+        };
+      }
     } catch (error) {
       return {
         success: false,

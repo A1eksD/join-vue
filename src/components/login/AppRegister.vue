@@ -14,7 +14,7 @@
         type="text"
         name="lastName"
         id="lastName"
-        v-memo="lastName"
+        v-model="lastName"
         placeholder="Last Name"
       />
       <input
