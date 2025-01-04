@@ -1,6 +1,6 @@
 <template>
   <div class="body-div">
-    <img src="" alt="" />
+    <img src="../assets/icons/letter-j.png" alt="" />
     <div class="name-div">
       <h1>
         {{ firstName ? firstName[0].toUpperCase() : "" }}
@@ -28,11 +28,16 @@ export default {
 
 <style lang="scss" scoped>
 .body-div {
-  width: 100vw;
-  height: 100px;
+  width: 100%;
+  height: 100%;
   display: flex;
-  align-content: space-between;
-  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+  img{
+    width: 80px;
+    object-fit: cover;
+    margin-left: 40px;
+  }
   .name-div {
     width: 80px;
     height: 80px;
@@ -41,6 +46,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-right: 40px;
     h1 {
       color: black;
       margin: 0;
