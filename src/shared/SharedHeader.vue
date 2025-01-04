@@ -3,26 +3,45 @@
     <img src="../assets/icons/letter-j.png" alt="" />
     <div class="name-div">
       <h1>
-        {{ firstName ? firstName[0].toUpperCase() : "" }}
-        {{ lastName ? lastName[0].toUpperCase() : "" }}
+        {{ initials }}
       </h1>
     </div>
   </div>
 </template>
 
 <script>
-import { UserService } from "@/services/user-service";
-
 export default {
   name: "SharedHeader",
-  setup() {
-    const userService = UserService();
-
+  data() {
     return {
-      firstName: userService.firstName,
-      lastName: userService.lastName,
+      fName: "",
+      lName: "",
+      initials: "",
     };
   },
+  methods: {
+
+    getUserInitials() {
+      if (this.fName || this.lName) {
+        const firstLetter = this.fName.charAt(0).toUpperCase();
+        const secondLetter = this.lName.charAt(0).toUpperCase();
+        this.initials = firstLetter + secondLetter;
+        console.log("Initials:", this.initials);
+        
+      } else {
+        console.log("No valid names found");
+        return '';
+      }
+    },
+  },
+  mounted() {
+    this.fName = (localStorage.getItem("firstName") || "").trim(); 
+    this.lName = (localStorage.getItem("lastName") || "").trim();
+
+    this.getUserInitials();
+  },
+
+  computed: {},
 };
 </script>
 
@@ -33,7 +52,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  img{
+  img {
     width: 80px;
     object-fit: cover;
     margin-left: 40px;

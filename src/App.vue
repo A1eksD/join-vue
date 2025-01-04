@@ -28,8 +28,6 @@ export default {
 .body-div {
   width: 100vw;
   height: 100dvh;
-  // display: flex;
-  // flex-direction: column;
 
   .shared-header {
     height: 100px;

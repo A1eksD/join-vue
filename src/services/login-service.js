@@ -1,16 +1,22 @@
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
-import { collection, query, where, getDocs, addDoc } from "firebase/firestore"; 
-import { firestore } from "../firebase/firebaseConfig"; 
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+} from "firebase/auth";
+import { collection, query, where, getDocs, addDoc } from "firebase/firestore";
+import { firestore } from "../firebase/firebaseConfig";
 import { UserService } from "@/services/user-service";
 
-
 export function loginService() {
-
-const userService = UserService(); 
+  const userService = UserService();
   const login = async (email, password) => {
     const auth = getAuth();
     try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
       const user = userCredential.user;
 
       const usersCollection = collection(firestore, "users");
@@ -31,11 +37,14 @@ const userService = UserService();
     }
   };
 
-
   const register = async (firstName, lastName, email, password) => {
     const auth = getAuth();
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
       const user = userCredential.user;
 
       const userData = {
@@ -52,9 +61,10 @@ const userService = UserService();
         userService.firstName.value = firstName;
         userService.lastName.value = lastName;
         console.log("userService.firstName.value", userService.firstName.value);
-        
-        localStorage.setItem("firstName", JSON.stringify(firstName));
-        localStorage.setItem("lastName", JSON.stringify(lastName));
+
+        localStorage.setItem("firstName", firstName);
+        localStorage.setItem("lastName", lastName);
+
         return {
           success: true,
           user,
