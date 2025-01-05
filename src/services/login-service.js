@@ -81,3 +81,69 @@ export function loginService() {
 
   return { login, register };
 }
+
+
+
+// import firebase from "firebase/app";
+// import "firebase/auth";
+// import "firebase/firestore";
+// import { firestore } from "../firebase/firebaseConfig";
+
+// export function loginService() {
+//   const login = async (email, password) => {
+//     try {
+//       const userCredential = await firebase.auth().signInWithEmailAndPassword(
+//         email,
+//         password
+//       );
+//       const user = userCredential.user;
+
+//       const usersCollection = firestore.collection("users");
+//       const querySnapshot = await usersCollection
+//         .where("uid", "==", user.uid)
+//         .get();
+
+//       return {
+//         success: true,
+//         user,
+//         userDocs: querySnapshot.docs.map((doc) => doc.data()),
+//       };
+//     } catch (error) {
+//       return {
+//         success: false,
+//         errorCode: error.code,
+//         errorMessage: error.message,
+//       };
+//     }
+//   };
+
+//   const register = async (firstName, lastName, email, password) => {
+//     try {
+//       const userCredential = await firebase.auth().createUserWithEmailAndPassword(
+//         email,
+//         password
+//       );
+//       const user = userCredential.user;
+
+//       const userData = {
+//         uid: user.uid,
+//         firstName,
+//         lastName,
+//         email,
+//         status: true,
+//       };
+
+//       await firestore.collection("users").add(userData);
+
+//       return { success: true, user };
+//     } catch (error) {
+//       return {
+//         success: false,
+//         errorCode: error.code,
+//         errorMessage: error.message,
+//       };
+//     }
+//   };
+
+//   return { login, register };
+// }
