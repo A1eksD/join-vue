@@ -27,7 +27,6 @@ export default {
         const secondLetter = this.lName.charAt(0).toUpperCase();
         this.initials = firstLetter + secondLetter;
         console.log("Initials:", this.initials);
-        
       } else {
         console.log("No valid names found");
         return '';

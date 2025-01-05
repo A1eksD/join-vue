@@ -1,18 +1,18 @@
-<template>
+<!-- <template>
   <div class="body-div">
-    <SharedHeader class="shared-header" /> <!-- Statischer Header -->
+    <SharedHeader class="shared-header" /> 
     <div class="main-layout">
-      <SharedSidebar class="shared-sidebar" /> <!-- Statische Sidebar -->
+      <SharedSidebar class="shared-sidebar" />
       <router-view v-slot="{ Component }">
-        <!-- <transition name="fade" mode="out-in" class="main-content"> -->
-          <component :is="Component" /> <!-- Dynamischer Bereich für Inhalte -->
-        <!-- </transition> -->
+        <transition name="fade" mode="out-in" class="main-content">
+          <component :is="Component" /> 
+        </transition>
       </router-view>
     </div>
   </div>
-</template>
+</template> -->
 
-<script>
+<!-- <script>
 import SharedHeader from "@/shared/SharedHeader.vue";
 import SharedSidebar from "@/shared/SharedSidebar.vue";
 
@@ -22,9 +22,9 @@ export default {
     SharedSidebar,
   },
 };
-</script>
+</script> -->
 
-<style scoped lang="scss">
+<!-- <style scoped lang="scss">
 .body-div {
   width: 100vw;
   height: 100dvh;
@@ -55,5 +55,28 @@ export default {
 .fade-enter,
 .fade-leave-to {
   opacity: 0;
+}
+</style> -->
+<template>
+  <router-view /> <!-- Zeigt die aktuelle Route an -->
+</template>
+
+<script>
+export default {
+  name: 'App',
+};
+</script>
+
+<style>
+/* Optional: global styles */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: Arial, sans-serif;
+}
+
+#app {
+  height: 100%; /* Passt sich der gesamten Höhe des Viewports an */
 }
 </style>
