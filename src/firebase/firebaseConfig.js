@@ -1,5 +1,4 @@
-// import { initializeApp } from 'firebase/app';
-// import { getFirestore } from 'firebase/firestore';
+
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
@@ -13,16 +12,27 @@ const firebaseConfig = {
   appId: process.env.VUE_APP_FIREBASE_APP_ID,
 };
 
-// Initialisiere Firebase
+// // Initialisiere Firebase
+// const firebaseApp = initializeApp(firebaseConfig);
+// const auth = getAuth(firebaseApp);
+// console.log("Firebase Auth Initialized:", auth);
+// // Exportiere Dienste (z. B. Firestore)
+// // const firestore = getFirestore(firebaseApp);
+// const firestore = getFirestore(auth);
+// registerVersion(app, 'your-app-name', 'your-app-version');
+// export { firebaseApp, auth, firestore };
 const firebaseApp = initializeApp(firebaseConfig);
+
+// Auth und Firestore-Dienste initialisieren
 const auth = getAuth(firebaseApp);
+const firestore = getFirestore(firebaseApp);
+
+// Optional: Log-Ausgabe, um sicherzustellen, dass Firebase korrekt initialisiert wurde
 console.log("Firebase Auth Initialized:", auth);
-// Exportiere Dienste (z. B. Firestore)
-// const firestore = getFirestore(firebaseApp);
-const firestore = getFirestore(auth);
+console.log("Firebase Firestore Initialized:", firestore);
 
-export { auth, firestore };
-
+// Exportiere die Dienste
+export { firebaseApp, auth, firestore };
 
 
 
@@ -50,3 +60,31 @@ export { auth, firestore };
 // const firestore = firebase.firestore();
 
 // export { auth, firestore };
+
+
+
+
+// Vorher (älteres SDK)
+// import firebase from 'firebase/app';
+// import 'firebase/firestore';
+
+// // Nachher (modulares SDK)
+// import { initializeApp } from 'firebase/app';
+// import { getFirestore } from 'firebase/firestore';
+
+// const firebaseConfig = {
+//   apiKey: "YOUR_API_KEY",
+//   authDomain: "YOUR_AUTH_DOMAIN",
+//   projectId: "YOUR_PROJECT_ID",
+//   storageBucket: "YOUR_STORAGE_BUCKET",
+//   messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+//   appId: "YOUR_APP_ID"
+// };
+
+// // Firebase-App initialisieren
+// const app = initializeApp(firebaseConfig);
+
+// // Firestore-Instanz abrufen
+// const db = getFirestore(app);
+
+// export { db };
