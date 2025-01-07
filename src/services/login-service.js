@@ -2,13 +2,17 @@ import {
   getAuth,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
+  signOut,
 } from "firebase/auth";
+import { doc, updateDoc } from "firebase/firestore";
 import { collection, query, where, getDocs, addDoc } from "firebase/firestore";
 import { firestore } from "../firebase/firebaseConfig";
 import { UserService } from "@/services/user-service";
+// import { userRouter } from "vue-router";
 
-export function loginService() {
+export function loginService(router) {
   const userService = UserService();
+  // const router = userRouter();
 
   const login = async (email, password) => {
     const auth = getAuth();
@@ -24,11 +28,22 @@ export function loginService() {
       const q = query(usersCollection, where("uid", "==", user.uid));
       const querySnapshot = await getDocs(q);
 
-      return {
-        success: true,
-        user,
-        userDocs: querySnapshot.docs.map((doc) => doc.data()),
-      };
+      if (querySnapshot) {
+        const currentUser = querySnapshot.docs.map((doc) => {
+          return { ...doc.data(), id: doc.id };
+        })[0]; 
+        
+        localStorage.setItem("firstName", currentUser.firstName);
+        localStorage.setItem("lastName", currentUser.lastName);
+        localStorage.setItem("userID", currentUser.id);
+        
+
+        return {
+          success: true,
+          user,
+          userDocs: querySnapshot.docs.map((doc) => doc.data()),
+        };
+      }
     } catch (error) {
       return {
         success: false,
@@ -37,6 +52,7 @@ export function loginService() {
       };
     }
   };
+
 
   const register = async (firstName, lastName, email, password) => {
     const auth = getAuth();
@@ -80,7 +96,24 @@ export function loginService() {
     }
   };
 
-  return { login, register };
+
+  const logout = async () => {
+    const auth = getAuth();
+    const currentUser = localStorage.getItem("userID");
+    const userDocRef = doc(firestore, `users/${currentUser}`);
+    try {
+      await updateDoc(userDocRef, { status: false });
+
+      await signOut(auth);
+
+      localStorage.clear();
+      router.push({ path: "/login" });
+    } catch (error) {
+      console.error("Fehler beim Logout:", error);
+    }
+  }
+
+  return { login, register, logout };
 }
 
 

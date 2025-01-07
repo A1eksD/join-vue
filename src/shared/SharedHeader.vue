@@ -1,15 +1,21 @@
 <template>
   <div class="body-div">
-    <img src="../assets/icons/letter-j.png" alt="" />
-    <div class="name-div">
-      <h1>
-        {{ initials }}
-      </h1>
+    <img src="../assets/icons/letter-j.png" class="letter-j" alt="" />
+    <div class="right-div">
+      <div class="name-div">
+        <h1>
+          {{ initials }}
+        </h1>
+      </div>
+      <img src="../assets/icons/logout.png" @click="logout" class="logoutIcon" alt="">
     </div>
   </div>
 </template>
 
 <script>
+import { loginService } from "@/services/login-service";
+import { useRouter } from "vue-router";
+
 export default {
   name: "SharedHeader",
   data() {
@@ -17,6 +23,7 @@ export default {
       fName: "",
       lName: "",
       initials: "",
+      loginServiceInstance: null,
     };
   },
   methods: {
@@ -32,9 +39,24 @@ export default {
         return '';
       }
     },
+
+    async logout() {
+      if (this.loginServiceInstance) {
+        try {
+          await this.loginServiceInstance.logout(); // Aufruf der Service-Methode
+        } catch (error) {
+          console.error("Fehler beim Logout:", error);
+        }
+      } else {
+        console.error("Login-Service ist nicht initialisiert.");
+      }
+    },
   },
   mounted() {
-    this.fName = (localStorage.getItem("firstName") || "").trim(); 
+    const router = useRouter();   // Router holen und Service initialisieren
+    this.loginServiceInstance = loginService(router);
+
+    this.fName = (localStorage.getItem("firstName") || "").trim();
     this.lName = (localStorage.getItem("lastName") || "").trim();
 
     this.getUserInitials();
@@ -51,12 +73,19 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  img {
+
+  .letter-j {
     width: 80px;
     object-fit: cover;
     margin-left: 40px;
   }
-  .name-div {
+
+  .right-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    .name-div {
     width: 80px;
     height: 80px;
     background-color: whitesmoke;
@@ -64,10 +93,17 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-right: 40px;
-    h1 {
-      color: black;
-      margin: 0;
+
+      h1 {
+        color: black;
+        margin: 0;
+      }
+    }
+    .logoutIcon{
+      width: 40px;
+      object-fit: cover;
+      margin-right: 16px;
+      cursor: pointer;
     }
   }
 }

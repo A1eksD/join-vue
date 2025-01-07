@@ -24,7 +24,7 @@ export default {
     //ref verwendet, um reaktive Variablen zu erstellen
     const loginName = ref("");
     const password = ref("");
-    const router = useRouter(); //router für redirect initalesieren
+    const router = useRouter(); 
 
     const login = async () => {
       try {
@@ -34,6 +34,8 @@ export default {
         );
         if (response.success) {
           console.log("Login erfolgreich:", response.user);
+          console.log("Registration successful:", response.user);
+          localStorage.setItem("userUID", JSON.stringify(response.user.uid));
           router.push({ path: "/summary" });
         } else {
           console.error(
