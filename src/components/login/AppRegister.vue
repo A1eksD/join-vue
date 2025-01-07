@@ -62,7 +62,6 @@ export default {
         password.value
       );
       if (response.success) {
-        console.log("Registration successful:", response.user);
         localStorage.setItem("userUID", JSON.stringify(response.user.uid));
         router.push({ path: "/summary" });
       } else {

@@ -22,7 +22,7 @@ const routes = [
   },
   // Geschützte Seiten mit Layout
   {
-    path: '/summary',
+    path: '/',
     component: MainLayout,
     children: [
       {

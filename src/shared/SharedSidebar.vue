@@ -21,8 +21,8 @@ export default {
   height: 100%;
   background-color: slateblue;
   display: flex;
-  justify-content: flex-start;
-  align-items: center;
+  justify-content: center;
+  align-items: flex-start;
 
   div {
     display: flex;

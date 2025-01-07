@@ -42,7 +42,7 @@
   
   .shared-sidebar {
     width: 200px;
-    background-color: slateblue;
+    background-color: #ebebeb;
   }
   
   .main-content {

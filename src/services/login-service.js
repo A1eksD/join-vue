@@ -8,14 +8,13 @@ import { doc, updateDoc } from "firebase/firestore";
 import { collection, query, where, getDocs, addDoc } from "firebase/firestore";
 import { firestore } from "../firebase/firebaseConfig";
 import { UserService } from "@/services/user-service";
-// import { userRouter } from "vue-router";
+
 
 export function loginService(router) {
   const userService = UserService();
-  // const router = userRouter();
+  const auth = getAuth();
 
   const login = async (email, password) => {
-    const auth = getAuth();
     try {
       const userCredential = await signInWithEmailAndPassword(
         auth,
@@ -36,7 +35,7 @@ export function loginService(router) {
         localStorage.setItem("firstName", currentUser.firstName);
         localStorage.setItem("lastName", currentUser.lastName);
         localStorage.setItem("userID", currentUser.id);
-        
+        userService.fetchContacts(currentUser.id);
 
         return {
           success: true,
@@ -55,7 +54,6 @@ export function loginService(router) {
 
 
   const register = async (firstName, lastName, email, password) => {
-    const auth = getAuth();
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
@@ -77,8 +75,6 @@ export function loginService(router) {
       if (resp) {
         userService.firstName.value = firstName;
         userService.lastName.value = lastName;
-        console.log("userService.firstName.value", userService.firstName.value);
-
         localStorage.setItem("firstName", firstName);
         localStorage.setItem("lastName", lastName);
 
@@ -98,7 +94,6 @@ export function loginService(router) {
 
 
   const logout = async () => {
-    const auth = getAuth();
     const currentUser = localStorage.getItem("userID");
     const userDocRef = doc(firestore, `users/${currentUser}`);
     try {
