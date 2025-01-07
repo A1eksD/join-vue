@@ -20,7 +20,6 @@ export function UserService() {
   
           if (userData.savedUsers && Array.isArray(userData.savedUsers)) {
               contacts.value = userData.savedUsers;
-              console.log("Loaded contacts from savedUsers:", contacts.value);
           } else {
               console.log("No savedUsers found or it is not an array.");
               contacts.value = []; 
